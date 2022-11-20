@@ -1,5 +1,11 @@
 import { Fragment, } from "react";
-import { Outlet, Link, } from "react-router-dom";
+import { Outlet, Link, useLoaderData, } from "react-router-dom";
+import { getContacts } from "../contacts";
+
+export async function loader() {
+  const contacts = await getContacts();
+  return { contacts };
+}
 
 const SearchForm = () => {
 
@@ -33,6 +39,7 @@ const NavigationBar = () => {
 
 
 export default function Root() {
+  const { contacts } = useLoaderData();
   
 /** By organizing our routes, we can group larger modules
  * together. This part will probably be located in the #todo
